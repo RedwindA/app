@@ -5,3 +5,6 @@ tests/__pycache__
 *.pyc
 *.egg-info
 .env
+frontend/dist
+frontend/node_modules
+*.tsbuildinfo

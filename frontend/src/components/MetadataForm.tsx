@@ -78,18 +78,18 @@ export default function MetadataForm({ initial, filename, onSubmit, busy }: Prop
 
   return (
     <div>
-      <label>Title *</label>
-      <input className="input" value={titleMain} onChange={(e) => setTitleMain(e.target.value)} placeholder="主标题" />
+      <label htmlFor="title_main">Title *</label>
+      <input id="title_main" className="input" value={titleMain} onChange={(e) => setTitleMain(e.target.value)} placeholder="主标题" />
 
-      <label>Subtitle</label>
-      <input className="input" value={titleSub} onChange={(e) => setTitleSub(e.target.value)} placeholder="副标题（可选）" />
+      <label htmlFor="title_sub">Subtitle</label>
+      <input id="title_sub" className="input" value={titleSub} onChange={(e) => setTitleSub(e.target.value)} placeholder="副标题（可选）" />
 
       <label>Authors</label>
       <div className="chip-input">
         {authors.map((a) => (
           <span className="chip" key={a}>
             {a}
-            <button type="button" onClick={() => setAuthors(authors.filter((x) => x !== a))} aria-label="remove">×</button>
+            <button type="button" onClick={() => setAuthors(authors.filter((x) => x !== a))} aria-label={`remove ${a}`}>×</button>
           </span>
         ))}
         <input
@@ -101,26 +101,26 @@ export default function MetadataForm({ initial, filename, onSubmit, busy }: Prop
         />
       </div>
 
-      <label>Translator</label>
-      <input className="input" value={translator} onChange={(e) => setTranslator(e.target.value)} placeholder="译者（可选）" />
+      <label htmlFor="translator">Translator</label>
+      <input id="translator" className="input" value={translator} onChange={(e) => setTranslator(e.target.value)} placeholder="译者（可选）" />
 
       <div className="row">
         <div>
-          <label>Header (left)</label>
-          <input className="input" value={headerLeft} onChange={(e) => setHeaderLeft(e.target.value)} placeholder={titleMain || 'page header'} />
+          <label htmlFor="header_left">Header (left)</label>
+          <input id="header_left" className="input" value={headerLeft} onChange={(e) => setHeaderLeft(e.target.value)} placeholder={titleMain || 'page header'} />
         </div>
         <div>
-          <label>PDF /Title</label>
-          <input className="input" value={pdfTitle} onChange={(e) => setPdfTitle(e.target.value)} placeholder={pdfTitlePlaceholder} />
+          <label htmlFor="pdf_title">PDF /Title</label>
+          <input id="pdf_title" className="input" value={pdfTitle} onChange={(e) => setPdfTitle(e.target.value)} placeholder={pdfTitlePlaceholder} />
         </div>
         <div>
-          <label>PDF /Author</label>
-          <input className="input" value={pdfAuthor} onChange={(e) => setPdfAuthor(e.target.value)} placeholder={pdfAuthorPlaceholder} />
+          <label htmlFor="pdf_author">PDF /Author</label>
+          <input id="pdf_author" className="input" value={pdfAuthor} onChange={(e) => setPdfAuthor(e.target.value)} placeholder={pdfAuthorPlaceholder} />
         </div>
       </div>
 
-      {error && <div className="error" style={{ marginTop: 10 }}>{error}</div>}
-      <div style={{ marginTop: 16 }}>
+      {error && <div className="error mt">{error}</div>}
+      <div className="actions">
         <button className="btn" onClick={submit} disabled={busy}>{busy ? 'Submitting…' : 'Start job'}</button>
       </div>
     </div>

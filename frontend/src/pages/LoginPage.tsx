@@ -20,7 +20,7 @@ export default function LoginPage() {
       navigate('/', { replace: true });
     } catch (err: any) {
       const status = err?.response?.status;
-      if (status === 429) setError('Too many attempts — try again in a minute.');
+      if (status === 429) setError('Too many attempts. Try again in a minute.');
       else if (status === 401) setError('Wrong password.');
       else setError('Login failed: ' + (err?.message ?? 'unknown'));
     } finally {
@@ -29,9 +29,11 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="container" style={{ maxWidth: 420, marginTop: 80 }}>
-      <h1 style={{ marginBottom: 8 }}>MinerU → LaTeX</h1>
-      <p className="muted" style={{ marginTop: 0 }}>Single-user web wrapper. Sign in to continue.</p>
+    <div className="container narrow">
+      <div className="login-hero">
+        <h1>MinerU → LaTeX</h1>
+        <p>Single-user web wrapper. Sign in to continue.</p>
+      </div>
       <form className="panel" onSubmit={onSubmit}>
         <label htmlFor="pw">Password</label>
         <input
@@ -43,12 +45,12 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <div style={{ marginTop: 16 }}>
+        <div className="actions">
           <button className="btn" disabled={busy || !password} type="submit">
             {busy ? 'Signing in…' : 'Sign in'}
           </button>
         </div>
-        {error && <div className="error" style={{ marginTop: 12 }}>{error}</div>}
+        {error && <div className="error mt">{error}</div>}
       </form>
     </div>
   );

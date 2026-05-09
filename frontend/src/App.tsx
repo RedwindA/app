@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from './auth/AuthContext';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
@@ -17,28 +17,41 @@ function Topbar() {
   const nav = useNavigate();
   if (!token) return null;
   return (
-    <div className="topbar">
-      <div className="brand">MinerU → LaTeX</div>
-      <nav>
-        <Link to="/">Dashboard</Link>
-        <Link to="/upload">New upload</Link>
-        <button className="btn small secondary" onClick={() => { logout(); nav('/login'); }}>Logout</button>
+    <header className="topbar" role="banner">
+      <div className="brand">
+        <span className="brand-mark" aria-hidden="true">L</span>
+        <span>MinerU → LaTeX</span>
+      </div>
+      <nav aria-label="Primary">
+        <NavLink to="/" end className={({ isActive }) => (isActive ? 'active' : undefined)}>Dashboard</NavLink>
+        <NavLink to="/upload" className={({ isActive }) => (isActive ? 'active' : undefined)}>New upload</NavLink>
+        <span className="topbar-spacer" aria-hidden="true" />
+        <button
+          className="btn small ghost"
+          onClick={() => { logout(); nav('/login'); }}
+          aria-label="Sign out"
+        >
+          Logout
+        </button>
       </nav>
-    </div>
+    </header>
   );
 }
 
 export default function App() {
   return (
     <>
+      <a href="#main" className="skip-link">Skip to content</a>
       <Topbar />
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-        <Route path="/upload" element={<ProtectedRoute><UploadPage /></ProtectedRoute>} />
-        <Route path="/jobs/:id" element={<ProtectedRoute><JobDetailPage /></ProtectedRoute>} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <main id="main" role="main">
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+          <Route path="/upload" element={<ProtectedRoute><UploadPage /></ProtectedRoute>} />
+          <Route path="/jobs/:id" element={<ProtectedRoute><JobDetailPage /></ProtectedRoute>} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DropZone from '../components/DropZone';
 import MetadataForm from '../components/MetadataForm';
 import { JobMetadata, createJob } from '../api/client';
@@ -30,13 +30,16 @@ export default function UploadPage() {
 
   return (
     <div className="container">
-      <h2>New upload</h2>
+      <div className="page-head">
+        <h2>New upload</h2>
+        <Link to="/" className="btn small secondary">← Back</Link>
+      </div>
       <div className="panel">
         <DropZone file={file} onFile={setFile} />
       </div>
       <div className="panel">
         <MetadataForm initial={{}} filename={file?.name ?? null} onSubmit={onSubmit} busy={busy} />
-        {error && <div className="error" style={{ marginTop: 12 }}>{error}</div>}
+        {error && <div className="error mt">{error}</div>}
       </div>
     </div>
   );
