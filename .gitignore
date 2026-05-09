@@ -1,0 +1,7 @@
+latex-app-data
+.pytest_cache
+backend/app/__pycache__
+tests/__pycache__
+*.pyc
+*.egg-info
+.env
