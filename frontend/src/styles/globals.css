@@ -1,0 +1,230 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@source "../**/*.{ts,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-faint: var(--faint);
+}
+
+:root {
+  /* Warm neutrals with a coordinated, accessible accent palette. */
+  --background: #f7f5f0;
+  --foreground: #141416;
+  --card: #ffffff;
+  --card-foreground: #141416;
+  --popover: #ffffff;
+  --popover-foreground: #141416;
+  --primary: var(--tone-blue);
+  --primary-foreground: #ffffff;
+  --secondary: #eeece6;
+  --secondary-foreground: #141416;
+  --muted: #eeece6;
+  --muted-foreground: #66666e;
+  --accent: #e9e7e0;
+  --accent-foreground: #141416;
+  --destructive: #b23f45;
+  --border: #e3e0d8;
+  --input: #e3e0d8;
+  --ring: var(--tone-blue);
+  --link: var(--tone-blue);
+  --faint: #8a8a91;
+  --tone-blue: #315f91;
+  --tone-teal: #206b60;
+  --tone-violet: #704c9b;
+  --tone-amber: #855615;
+  --tone-rose: #9a3d60;
+  --status-review: var(--tone-violet);
+  --status-planned: var(--tone-amber);
+  --status-progress: var(--tone-blue);
+  --status-shipped: var(--tone-teal);
+  --status-closed: #696974;
+  --radius: 0.5rem;
+  --sidebar: #f2f0ea;
+  --sidebar-foreground: #141416;
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: #e9e7e0;
+  --sidebar-accent-foreground: #141416;
+  --sidebar-border: #e3e0d8;
+  --sidebar-ring: var(--ring);
+  --chart-1: var(--tone-blue);
+  --chart-2: var(--tone-teal);
+  --chart-3: var(--tone-violet);
+  --chart-4: var(--tone-amber);
+  --chart-5: var(--tone-rose);
+}
+
+.dark {
+  /* Softer accents on neutral dark surfaces. */
+  --background: #0d0d0f;
+  --foreground: #ededf0;
+  --card: #121214;
+  --card-foreground: #ededf0;
+  --popover: #18181b;
+  --popover-foreground: #ededf0;
+  --primary: var(--tone-blue);
+  /* Dark navy tuned for ~7:1 contrast on --tone-blue; update together. */
+  --primary-foreground: #132435;
+  --secondary: #18181b;
+  --secondary-foreground: #ededf0;
+  --muted: #18181b;
+  --muted-foreground: #9a9aa3;
+  --accent: #202024;
+  --accent-foreground: #ededf0;
+  --destructive: #ee9191;
+  --border: #1f1f23;
+  --input: #2a2a30;
+  --ring: var(--tone-blue);
+  --link: var(--tone-blue);
+  --faint: #63636b;
+  --tone-blue: #92b8df;
+  --tone-teal: #79c8b4;
+  --tone-violet: #bea1e6;
+  --tone-amber: #dfb56f;
+  --tone-rose: #df9ab3;
+  --status-review: var(--tone-violet);
+  --status-planned: var(--tone-amber);
+  --status-progress: var(--tone-blue);
+  --status-shipped: var(--tone-teal);
+  --status-closed: #a1a1ad;
+  --sidebar: #0d0d0f;
+  --sidebar-foreground: #ededf0;
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: #18181b;
+  --sidebar-accent-foreground: #ededf0;
+  --sidebar-border: #1f1f23;
+  --sidebar-ring: var(--ring);
+  --chart-1: var(--tone-blue);
+  --chart-2: var(--tone-teal);
+  --chart-3: var(--tone-violet);
+  --chart-4: var(--tone-amber);
+  --chart-5: var(--tone-rose);
+}
+
+@theme inline {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
+  --color-tone-blue: var(--tone-blue);
+  --color-tone-teal: var(--tone-teal);
+  --color-tone-violet: var(--tone-violet);
+  --color-tone-amber: var(--tone-amber);
+  --color-tone-rose: var(--tone-rose);
+  --color-link: var(--link);
+  --color-status-review: var(--status-review);
+  --color-status-planned: var(--status-planned);
+  --color-status-progress: var(--status-progress);
+  --color-status-shipped: var(--status-shipped);
+  --color-status-closed: var(--status-closed);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans antialiased;
+    color-scheme: light dark;
+  }
+  body {
+    @apply bg-background font-sans text-sm text-foreground;
+  }
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--link) 35%, transparent);
+  }
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &:hover,
+  &:focus-within {
+    scrollbar-color: var(--input) transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 9999px;
+  }
+  &:hover::-webkit-scrollbar-thumb,
+  &:focus-within::-webkit-scrollbar-thumb {
+    background: var(--input);
+  }
+}
+
+@utility animate-shake {
+  animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes shake {
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-4px);
+  }
+  40%,
+  60% {
+    transform: translateX(4px);
+  }
+}

@@ -1,0 +1,73 @@
+@import "./fonts.css";
+@import "./globals.css";
+
+/* The same readable text overrides as the original web app. */
+.dark {
+  --muted-foreground: #a1a1aa;
+  --faint: #85858f;
+  color-scheme: dark;
+}
+:root:not(.dark) {
+  color-scheme: light;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+}
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+/* InputGroup draws the focus ring around the whole control, including its addons. */
+[data-slot="input-group"] [data-slot="input-group-control"]:focus-visible,
+[data-slot="combobox"] [data-slot="combobox-input"]:focus-visible,
+[data-slot="command"] [data-slot="command-input"]:focus-visible {
+  outline: none;
+  outline-offset: 0;
+}
+/* Theme switch: cross-fade the whole page (View Transitions) ... Keep the UA
+   plus-lighter blend on the isolated image pair so matching pixels stay opaque
+   mid-fade; forcing `normal` dips alpha and high-contrast chrome flickers. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+  animation-timing-function: ease-out;
+}
+/* While the root cross-fade runs, the spec skips the live DOM in hit-testing and
+   every pointer event lands on <html>; a fast second click (double-click / drag)
+   there makes Chrome word-select the nearest text, i.e. the sidebar nav.
+   `::view-transition { pointer-events: none }` cannot fix this while :root is
+   captured, so block selection for the duration instead (class set in
+   transitionTheme). */
+html.theme-view-transition {
+  user-select: none;
+}
+/* ...or, without View Transitions, fade colors for the duration of the temporary class. */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color 200ms ease-out,
+    color 200ms ease-out,
+    border-color 200ms ease-out,
+    fill 200ms ease-out,
+    stroke 200ms ease-out !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}

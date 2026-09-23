@@ -1,18 +1,32 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="MinerU to LaTeX. Convert scanned PDFs into clean, typeset LaTeX books." />
-    <meta property="og:title" content="MinerU → LaTeX" />
-    <meta property="og:description" content="Convert scanned PDFs into clean, typeset LaTeX books." />
-    <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#0f1115" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230f1115'/><path d='M9 9h4v10h6v4H9z' fill='%236aa8ff'/><path d='M19 9h4v14h-4z' fill='%236aa8ff' opacity='0.55'/></svg>" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#0d0d0f" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      (() => {
+        let theme = "dark";
+        try {
+          theme = localStorage.getItem("latex-app-theme") || "dark";
+        } catch {}
+        const dark =
+          theme === "system"
+            ? matchMedia("(prefers-color-scheme: dark)").matches
+            : theme !== "light";
+        document.documentElement.classList.toggle("dark", dark);
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
+        document.querySelector('meta[name="theme-color"]').content = dark
+          ? "#0d0d0f"
+          : "#f7f5f0";
+      })();
+    </script>
     <title>MinerU → LaTeX</title>
+    <meta
+      name="description"
+      content="把扫描版 PDF 转成排版整洁的 LaTeX 书籍。"
+    />
   </head>
   <body>
     <div id="root"></div>

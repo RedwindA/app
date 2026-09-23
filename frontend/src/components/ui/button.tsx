@@ -1,0 +1,113 @@
+import { Button as ButtonPrimitive } from "@base-ui/react/button";
+import { cn } from "@/lib/utils";
+import { ArrowRightIcon } from "@phosphor-icons/react";
+import { cva, type VariantProps } from "class-variance-authority";
+
+// One button. Every variant shares the radius (8px), the heights (30 / 34 /
+// 38) and the horizontal padding, so buttons line up wherever they sit. The
+// primary variant can carry a static inset arrow square. Widths never change
+// on hover or press.
+const buttonVariants = cva(
+  "group/button relative inline-flex shrink-0 items-center justify-center gap-2 overflow-hidden rounded-lg text-[13px] font-semibold whitespace-nowrap select-none outline-none transition-[transform,background-color] duration-100 ease-out focus-visible:ring-2 focus-visible:ring-ring/60 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  {
+    variants: {
+      variant: {
+        primary:
+          "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 active:bg-primary/80",
+        secondary:
+          "border border-input bg-accent text-muted-foreground shadow-[inset_0_1px_0_rgba(255,255,255,.08)] hover:bg-[color-mix(in_oklch,var(--accent),white_4%)] hover:text-foreground active:bg-[color-mix(in_oklch,var(--accent),black_8%)] aria-expanded:text-foreground",
+        outline:
+          "border border-border bg-transparent text-muted-foreground hover:border-input hover:bg-accent/60 hover:text-foreground aria-expanded:bg-accent aria-expanded:text-foreground",
+        ghost:
+          "text-muted-foreground hover:bg-accent hover:text-foreground aria-expanded:bg-accent aria-expanded:text-foreground",
+        destructive:
+          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:ring-destructive/40",
+        link: "h-auto rounded-none p-0 text-link underline-offset-4 hover:underline",
+      },
+      size: {
+        sm: "h-[30px] px-3 text-xs",
+        default: "h-[34px] px-3.5",
+        lg: "h-[38px] px-4 rounded-lg",
+        icon: "size-[34px] px-0",
+        "icon-sm": "size-[30px] px-0",
+      },
+      arrow: {
+        true: "",
+        false: "",
+      },
+    },
+    compoundVariants: [
+      { arrow: true, size: "sm", className: "pr-[34px]" },
+      { arrow: true, size: "default", className: "pr-[38px]" },
+      { arrow: true, size: "lg", className: "pr-[42px]" },
+    ],
+    defaultVariants: { variant: "primary", size: "default", arrow: false },
+  },
+);
+
+const arrowBox = cva(
+  "pointer-events-none absolute top-1 right-1 bottom-1 z-10 grid place-items-center rounded-md transition-colors duration-150",
+  {
+    variants: {
+      variant: {
+        primary:
+          "bg-primary-foreground/10 group-hover/button:bg-primary-foreground/15",
+        secondary:
+          "bg-white/[.06] shadow-[inset_0_1px_0_rgba(255,255,255,.06)]",
+        outline: "bg-accent",
+        ghost: "bg-accent",
+        destructive: "bg-destructive/15",
+        link: "hidden",
+      },
+      size: {
+        sm: "w-[22px]",
+        default: "w-[26px]",
+        lg: "w-[30px]",
+        icon: "hidden",
+        "icon-sm": "hidden",
+      },
+    },
+    defaultVariants: { variant: "primary", size: "default" },
+  },
+);
+
+type ButtonProps = ButtonPrimitive.Props &
+  VariantProps<typeof buttonVariants> & { full?: boolean };
+
+function Button({
+  className,
+  variant = "primary",
+  size = "default",
+  arrow = false,
+  full,
+  children,
+  ...props
+}: ButtonProps) {
+  const withArrow =
+    !!arrow && size !== "icon" && size !== "icon-sm" && variant !== "link";
+  return (
+    <ButtonPrimitive
+      data-slot="button"
+      className={cn(
+        buttonVariants({ variant, size, arrow: withArrow }),
+        full && "w-full",
+        withArrow && "justify-start",
+        className,
+      )}
+      {...props}
+    >
+      {withArrow ? (
+        <>
+          <span className={cn(full && "flex-1 text-left")}>{children}</span>
+          <i aria-hidden className={arrowBox({ variant, size })}>
+            <ArrowRightIcon weight="bold" className="size-[13px]" />
+          </i>
+        </>
+      ) : (
+        children
+      )}
+    </ButtonPrimitive>
+  );
+}
+
+export { Button, buttonVariants };

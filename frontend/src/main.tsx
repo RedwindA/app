@@ -1,25 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import App from './App';
-import { AuthProvider } from './auth/AuthContext';
-import './styles.css';
+import { StrictMode } from "react";
+import { AppErrorBoundary } from "@/components/app-error-boundary";
+import { createRoot } from "react-dom/client";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { RouterProvider } from "@tanstack/react-router";
+import { MotionProvider } from "@/components/motion-provider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { queryClient } from "@/data/jobs";
+import { router } from "./router";
+import "./styles/index.css";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: { staleTime: 1000, retry: 1, refetchOnWindowFocus: false },
-  },
-});
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
-  </React.StrictMode>,
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <AppErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <MotionProvider>
+            <TooltipProvider>
+              <RouterProvider router={router} />
+            </TooltipProvider>
+            <Toaster position="bottom-right" />
+          </MotionProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </AppErrorBoundary>
+  </StrictMode>,
 );
