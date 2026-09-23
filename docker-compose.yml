@@ -1,7 +1,6 @@
 services:
   app:
-    build: .
-    image: austinleo/latex-app:latest
+    image: ghcr.io/redwinda/app:latest
     container_name: latex-app
     restart: unless-stopped
     ports:
